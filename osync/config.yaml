@@ -1,5 +1,5 @@
 name: Osync All-in-One
-version: "0.1.0"
+version: "0.1.1"
 slug: osync
 url: https://github.com/ik1022/ha-osync-server
 description: Osync sync server with PostgreSQL and MinIO

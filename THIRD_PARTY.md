@@ -1,7 +1,7 @@
 # Upstream components
 
 - Osync: https://github.com/KORThomasJeong/Osync-p (MIT as documented upstream).
-  Server files are copied from the public `thomasjeong/osync` image at the digest in the Dockerfile.
+  Server files are copied from the public `thomasjeong/osync:latest-baseline` image.
   The server source is not in that public plugin repository; no server source modification is included.
 - PostgreSQL: https://www.postgresql.org/about/licence/ (PostgreSQL License).
 - MinIO: https://github.com/minio/minio/tree/9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a

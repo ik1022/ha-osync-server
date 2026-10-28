@@ -1,6 +1,6 @@
 # Osync Home Assistant App
 
-**0.1.0 실험 버전 — x86-64 Docker 검증 완료, 실제 Home Assistant 설치 검증 대기.**
+**0.1.1 실험 버전 — x86-64 Docker 검증 및 사용자 HA OS 기동 확인, ARM·기기 간 동기화 검증 대기.**
 
 `osync/` 폴더는 Home Assistant App 빌드 컨텍스트입니다.
 [Osync-p](https://github.com/KORThomasJeong/Osync-p)의 서버 배포 이미지를 사용합니다.
@@ -16,7 +16,7 @@ Osync All-in-One을 설치한 뒤 공개 API/S3 주소와 최초 관리자 계�
 
 ## 포함된 구성
 
-- Osync 공개 배포 이미지에서 서버와 웹 UI를 가져옵니다. 이미지 digest 고정.
+- `thomasjeong/osync:latest-baseline` 이미지에서 서버와 웹 UI를 가져옵니다.
 - PostgreSQL 16 공식 이미지 기반. DB는 컨테이너 내부 loopback에서만 수신.
 - MinIO 공식 마지막 보안 릴리스 소스를 빌드해 포함. 소스 commit 고정.
 - Python 표준 라이브러리 기반 시작/종료 및 상태 관리.
@@ -38,8 +38,14 @@ Osync All-in-One을 설치한 뒤 공개 API/S3 주소와 최초 관리자 계�
 
 마지막 항목은 cold backup과 같은 저장 상태에서의 복원 테스트이며,
 Home Assistant Supervisor 자체의 백업 기능 테스트는 아닙니다.
-실제 Obsidian 두 기기 간 동기화, HA OS 설치·백업·복원, aarch64 실행 검증은 남아 있습니다.
-아키텍처별 CI 워크플로는 포함했지만 원격 CI는 실행하지 않았습니다.
+사용자 HA OS/Proxmox 환경에서는 CPU 유형을 `kvm64`에서 `host`로 바꾼 후 기동 성공을 확인했습니다.
+실제 Obsidian 두 기기 간 동기화, HA OS 백업·복원, aarch64 실행 검증은 남아 있습니다.
+아키텍처별 CI 결과는 저장소의 [Actions](https://github.com/ik1022/ha-osync-server/actions)에서 확인할 수 있습니다.
+
+0.1.1의 `latest-baseline`은 2026-10-28 확인 시 0.1.0에서 사용한
+`sha256:86f6bbf73350477a46b61a49bbfcca3a85dae23dfea079b370c7d321e3c76918`과 동일했습니다.
+태그 전환만으로 `kvm64` 호환성이 개선되지는 않습니다. 향후 태그 변경을 반영하려면
+새 이미지를 가져와 App을 다시 빌드해야 하며 실행 중인 App이 자동 교체되지는 않습니다.
 
 ```sh
 python -m unittest discover -s tests -v
